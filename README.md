@@ -1,1 +1,1 @@
-# playDirecory
+# playerDirecory
