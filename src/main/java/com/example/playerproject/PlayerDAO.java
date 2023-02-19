@@ -1,14 +1,18 @@
 package com.example.playerproject;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+@Service
 public interface PlayerDAO {
 
-    void savePlayer(Player player);
+    void addPlayer(Player player);
 
-    void addGameLevelToPlayer(Level level, Player player);
+    void addGameLevelToPlayer(Level level, String playerId);
 
     List<Player> getMatchingPlayers(String countryCode, Level level);
 
-    List<Player> getPlayerByRanking();
+    List<Player> getPlayerByRanking(Game game, PlayerLevel playerLevel);
+
+    List<Player> getAllPlayers();
 }
