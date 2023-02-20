@@ -31,13 +31,10 @@ class PlayerServiceTest {
 
     @Test
     void addPlayer() {
-
         final var player = new Player(10, "Alice", "USA");
 
-        // Act
         playerService.addPlayer(player);
 
-        // Assert
         verify(playerDAO, times(1)).addPlayer(any(Player.class));
         verifyNoMoreInteractions(playerDAO);
     }
@@ -47,10 +44,8 @@ class PlayerServiceTest {
         final var player = new Player(11, "Molly", "NOR");
         final var level = new Level(32, player.getPlayerId(), Game.BASEBALL, PlayerLevel.INVINCIBLE);
 
-        // Act
         playerService.addLevelToPlayer(level.getId(), level.getPlayerId(), level.getPlayerLevel(), level.getGame());
 
-        // Assert
         verify(playerDAO, times(1)).addGameLevelToPlayer(any(int.class), any(int.class),
                 any(Game.class), any(PlayerLevel.class));
         verifyNoMoreInteractions(playerDAO);
@@ -61,13 +56,10 @@ class PlayerServiceTest {
         final var expectedPlayer = new Player(13, "Lilly", "DEU");
         List<Player> playerList = new ArrayList<>();
         playerList.add(expectedPlayer);
-
         when(playerDAO.getMatchingPlayers(any(String.class), any(PlayerLevel.class))).thenReturn(playerList);
 
-        // Act
         final var actual = playerDAO.getMatchingPlayers("DEU", PlayerLevel.PRO);
 
-        // Assert
         assertThat(actual).usingRecursiveComparison().isEqualTo(playerList);
         verify(playerDAO, times(1)).getMatchingPlayers(any(String.class), any(PlayerLevel.class));
         verifyNoMoreInteractions(playerDAO);
@@ -78,13 +70,10 @@ class PlayerServiceTest {
         final var expectedPlayer = new Player(14, "Sara", "GBR");
         List<Player> playerList = new ArrayList<>();
         playerList.add(expectedPlayer);
-
         when(playerDAO.getPlayerByRanking(any(Game.class), any(PlayerLevel.class))).thenReturn(playerList);
 
-        // Act
         final var actual = playerDAO.getPlayerByRanking(Game.BOWLING, PlayerLevel.PRO);
 
-        // Assert
         assertThat(actual).usingRecursiveComparison().isEqualTo(playerList);
         verify(playerDAO, times(1)).getPlayerByRanking(any(Game.class), any(PlayerLevel.class));
         verifyNoMoreInteractions(playerDAO);
@@ -95,13 +84,10 @@ class PlayerServiceTest {
         final var expectedPlayer = new Player(13, "Peter", "SWE");
         List<Player> playerList = new ArrayList<>();
         playerList.add(expectedPlayer);
-
         when(playerDAO.getAllPlayers()).thenReturn(playerList);
 
-        // Act
         final var actual = playerDAO.getAllPlayers();
 
-        // Assert
         assertThat(actual).usingRecursiveComparison().isEqualTo(playerList);
         verify(playerDAO, times(1)).getAllPlayers();
         verifyNoMoreInteractions(playerDAO);

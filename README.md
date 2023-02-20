@@ -15,7 +15,8 @@ or start the service with `mvn spring-boot:run` - then you can interact with it 
 `http://localhost:8080/playerproject`. The available endpoints are:
 
 * Get request for getting all players. URL: `localhost:8080/playerproject/players`
-* Post request for creating a player. URL: `localhost:8080/playerproject/players` Body:
+* Post request for creating a player. URL: `localhost:8080/playerproject/players` 
+Body:
 ```
 {
     "playerId": 25,
@@ -23,8 +24,8 @@ or start the service with `mvn spring-boot:run` - then you can interact with it 
     "countryCode": "DNK"
 }
 ```
-* Post request for adding a level to a player URL: `localhost:8080/playerproject/levels/{playerId}/{id}/{playerLevel}/{game}`
-If we were to add a level to the just created player the specific URL would be `localhost:8080/playerproject/levels/25/9/PRO/GOLF`.
+* Post request for adding a level to a player URL: `localhost:8080/playerproject/levels/{playerId}/{id}/{playerLevel}/{game}`.
+If we were to add a level to the just created player the specific URL would be `localhost:8080/playerproject/levels/25/9/PRO/GOLF`
 
 * Get request for getting matching players. URL: `localhost:8080/playerproject/players/{countryCode}/{level}`
 * Get request for getting players matched by level. URL: `localhost:8080/playerproject/players/{game}/{playerLevel}`
@@ -56,3 +57,6 @@ In the `JdbcPlayerDAOTest` it would have been beneficial to test more failure st
 no players to match with.
 
 I only do unit testing, no end-to-end / integration test of the controller.
+
+When creating a new player through the API the response will be `201 Created` in all cases. Even if it is an existing
+`playerId`, this is a flaw since it should return `409 Conflict` as the response. 

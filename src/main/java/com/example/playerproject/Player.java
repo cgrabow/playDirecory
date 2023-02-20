@@ -11,11 +11,6 @@ public class Player {
     private String name;
     private String countryCode;
 
-
-    public Player() {
-
-    }
-
     public Player(int playerId, String name, String countryCode) {
         this.playerId = playerId;
         this.name = name;

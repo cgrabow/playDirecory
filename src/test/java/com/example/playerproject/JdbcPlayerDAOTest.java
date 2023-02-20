@@ -55,8 +55,7 @@ public class JdbcPlayerDAOTest {
 
         var result = jdbcPlayerDAO.addPlayer(player);
 
-        var expected = jdbcTemplate.query("SELECT id, name, geography FROM players " +
-                        "WHERE id = ?; ",
+        var expected = jdbcTemplate.query("SELECT id, name, geography FROM players WHERE id = ?; ",
                 JdbcPlayerDAOTest::playerMapper,
                 player.getPlayerId());
 
@@ -82,8 +81,7 @@ public class JdbcPlayerDAOTest {
 
         var result = jdbcPlayerDAO.addGameLevelToPlayer(level.getId(), level.getPlayerId(), level.getGame(), level.getPlayerLevel());
 
-        var resultQuery = jdbcTemplate.query("SELECT id, playerId, level, game FROM playerLevels " +
-                        "WHERE id = ?; ",
+        var resultQuery = jdbcTemplate.query("SELECT id, playerId, level, game FROM playerLevels WHERE id = ?; ",
                 JdbcPlayerDAOTest::gameLevelMapper,
                 level.getId());
 
