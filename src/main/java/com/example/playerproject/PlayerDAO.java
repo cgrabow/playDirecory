@@ -8,7 +8,7 @@ public interface PlayerDAO {
 
     void addPlayer(Player player);
 
-    void addGameLevelToPlayer(Level level, String playerId);
+    void addGameLevelToPlayer(int id, int playerId, PlayerLevel playerLevel,  Game game);
 
     List<Player> getMatchingPlayers(String countryCode, Level level);
 

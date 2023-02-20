@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder(toBuilder = true)
 @Data
 public class Player {
-    private String playerId;
+    private int playerId;
     private String name;
     private String countryCode;
 
@@ -16,7 +16,7 @@ public class Player {
 
     }
 
-    public Player(String playerId, String name, String countryCode) {
+    public Player(int playerId, String name, String countryCode) {
         this.playerId = playerId;
         this.name = name;
         this.countryCode = countryCode;
