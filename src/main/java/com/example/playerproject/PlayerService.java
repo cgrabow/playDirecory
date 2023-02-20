@@ -33,4 +33,8 @@ public class PlayerService {
     public List<Player> getAllPlayers() {
         return playerDAO.getAllPlayers();
     }
+
+    public List<Level> getAllLevels() {
+        return playerDAO.getAllLevels();
+    }
 }

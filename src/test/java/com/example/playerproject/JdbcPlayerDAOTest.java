@@ -1,6 +1,7 @@
 package com.example.playerproject;
 
 import org.flywaydb.test.annotation.FlywayTest;
+import org.hibernate.event.spi.LoadEventListener;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,7 +51,7 @@ public class JdbcPlayerDAOTest {
     }
 
     @Test
-    public void testAddPlayer_success() {
+    public void addPlayer_success() {
         Player player = new Player(10, "Alice", "USA");
 
         var result = jdbcPlayerDAO.addPlayer(player);
@@ -64,7 +65,7 @@ public class JdbcPlayerDAOTest {
     }
 
     @Test
-    public void testAddPlayer_identical_id_fail() {
+    public void addPlayer_identical_id_fail() {
         Player player = new Player(20, "Alice", "USA");
         Player player2 = new Player(20, "Alice", "USA");
 
@@ -80,7 +81,6 @@ public class JdbcPlayerDAOTest {
         var level = new Level(40, 10, Game.TENNIS, PlayerLevel.PRO);
 
         var result = jdbcPlayerDAO.addGameLevelToPlayer(level.getId(), level.getPlayerId(), level.getGame(), level.getPlayerLevel());
-
         var resultQuery = jdbcTemplate.query("SELECT id, playerId, level, game FROM playerLevels WHERE id = ?; ",
                 JdbcPlayerDAOTest::gameLevelMapper,
                 level.getId());
@@ -117,7 +117,6 @@ public class JdbcPlayerDAOTest {
         Player player4 = new Player(24, "Sune", "DNK");
         jdbcPlayerDAO.addPlayer(player4);
         playerList.add(player4);
-
         jdbcPlayerDAO.addGameLevelToPlayer(31, player1.getPlayerId(), Game.TENNIS, PlayerLevel.PRO);
         jdbcPlayerDAO.addGameLevelToPlayer(32, player2.getPlayerId(), Game.BASEBALL, PlayerLevel.PRO);
         jdbcPlayerDAO.addGameLevelToPlayer(33, player3.getPlayerId(), Game.BOWLING, PlayerLevel.PRO);
@@ -143,7 +142,6 @@ public class JdbcPlayerDAOTest {
         Player player4 = new Player(34, "Sune", "DNK");
         jdbcPlayerDAO.addPlayer(player4);
         playerList.add(player4);
-
         jdbcPlayerDAO.addGameLevelToPlayer(41, player1.getPlayerId(), Game.TENNIS, PlayerLevel.N00B);
         jdbcPlayerDAO.addGameLevelToPlayer(42, player2.getPlayerId(), Game.TENNIS, PlayerLevel.N00B);
         jdbcPlayerDAO.addGameLevelToPlayer(43, player3.getPlayerId(), Game.TENNIS, PlayerLevel.PRO);
@@ -164,6 +162,21 @@ public class JdbcPlayerDAOTest {
                         .playerId(Integer.parseInt(String.valueOf(rs.getString("id"))))
                         .name(String.valueOf(rs.getString("name")))
                         .countryCode(String.valueOf(rs.getString("geography")))
+                        .build());
+
+        assertEquals(result, expected);
+    }
+
+    @Test
+    public void getAllLevels_success() {
+        var result = jdbcPlayerDAO.getAllLevels();
+
+        List<Level> expected = jdbcTemplate.query("SELECT * FROM playerLevels;",
+                (rs, rowNum) -> Level.builder()
+                        .id(Integer.parseInt(String.valueOf(rs.getString("id"))))
+                        .playerId(Integer.parseInt(String.valueOf(rs.getString("playerId"))))
+                        .game(Game.valueOf(String.valueOf(rs.getString("game"))))
+                        .playerLevel(PlayerLevel.valueOf(String.valueOf(rs.getString("level"))))
                         .build());
 
         assertEquals(result, expected);

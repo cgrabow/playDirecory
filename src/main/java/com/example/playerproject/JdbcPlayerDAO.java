@@ -85,4 +85,17 @@ public class JdbcPlayerDAO implements PlayerDAO {
                         .countryCode(String.valueOf(rs.getString("geography")))
                         .build());
     }
+
+    @Override
+    public List<Level> getAllLevels() {
+        String getAllLevels =
+                "SELECT l.id, l.playerId, l.game, l.level " +
+                        " FROM playerLevels l ";
+        return jdbcTemplate.query(getAllLevels, (rs, rowNum) -> Level.builder()
+                .id(Integer.parseInt(String.valueOf(rs.getString("id"))))
+                .playerId(Integer.parseInt(String.valueOf(rs.getString("playerId"))))
+                .game(Game.valueOf(String.valueOf(rs.getString("game"))))
+                .playerLevel(PlayerLevel.valueOf(String.valueOf(rs.getString("level"))))
+                .build());
+    }
 }

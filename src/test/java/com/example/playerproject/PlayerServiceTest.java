@@ -92,4 +92,19 @@ class PlayerServiceTest {
         verify(playerDAO, times(1)).getAllPlayers();
         verifyNoMoreInteractions(playerDAO);
     }
+
+    @Test
+    void getAllLevels() {
+        final var player = new Player(13, "Peter", "SWE");
+        final var expectedLevel = new Level(26, player.getPlayerId(), Game.BASEBALL, PlayerLevel.N00B);
+        List<Level> levelList = new ArrayList<>();
+        levelList.add(expectedLevel);
+        when(playerDAO.getAllLevels()).thenReturn(levelList);
+
+        final var actual = playerDAO.getAllLevels();
+
+        assertThat(actual).usingRecursiveComparison().isEqualTo(levelList);
+        verify(playerDAO, times(1)).getAllLevels();
+        verifyNoMoreInteractions(playerDAO);
+    }
 }

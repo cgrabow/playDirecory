@@ -15,4 +15,6 @@ public interface PlayerDAO {
     List<Player> getPlayerByRanking(Game game, PlayerLevel playerLevel);
 
     List<Player> getAllPlayers();
+
+    List<Level> getAllLevels();
 }

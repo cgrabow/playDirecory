@@ -18,6 +18,12 @@ public class PlayerController {
         return service.getAllPlayers();
     }
 
+    @GetMapping("/levels")
+    @ResponseStatus(HttpStatus.OK)
+    public List<Level> getAllLevels() {
+        return service.getAllLevels();
+    }
+
     @PostMapping("/players")
     @ResponseStatus(HttpStatus.CREATED)
     public void createPlayer(@RequestBody Player player) {
