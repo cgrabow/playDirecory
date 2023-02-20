@@ -20,10 +20,10 @@ public class PlayerService {
 
     public void addLevelToPlayer(int id, int playerId, PlayerLevel playerLevel,  Game game) {
 
-        playerDAO.addGameLevelToPlayer(id, playerId, playerLevel,  game);
+        playerDAO.addGameLevelToPlayer(id, playerId, game, playerLevel);
     }
 
-    public List<Player> getMatchingPlayers(String countryCode, Level level) {
+    public List<Player> getMatchingPlayers(String countryCode, PlayerLevel level) {
         return playerDAO.getMatchingPlayers(countryCode, level);
     }
 

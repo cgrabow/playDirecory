@@ -6,11 +6,11 @@ import java.util.List;
 @Service
 public interface PlayerDAO {
 
-    void addPlayer(Player player);
+    String addPlayer(Player player);
 
-    void addGameLevelToPlayer(int id, int playerId, PlayerLevel playerLevel,  Game game);
+    String addGameLevelToPlayer(int id, int playerId, Game game, PlayerLevel playerLevel);
 
-    List<Player> getMatchingPlayers(String countryCode, Level level);
+    List<Player> getMatchingPlayers(String countryCode, PlayerLevel level);
 
     List<Player> getPlayerByRanking(Game game, PlayerLevel playerLevel);
 

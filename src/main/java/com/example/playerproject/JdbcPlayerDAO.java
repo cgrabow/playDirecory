@@ -1,6 +1,7 @@
 package com.example.playerproject;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Repository;
@@ -11,30 +12,40 @@ import java.util.List;
 @Component
 @Configuration
 public class JdbcPlayerDAO implements PlayerDAO {
-    public JdbcTemplate jdbcTemplate;
+    private final JdbcTemplate jdbcTemplate;
 
     public JdbcPlayerDAO(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
     @Override
-    public void addPlayer(Player player) {
+    public String addPlayer(Player player) {
         String insertPlayerQuery =
                 "INSERT INTO players (id, name, geography) " +
                 "VALUES (?, ?, ?); ";
-        jdbcTemplate.update(insertPlayerQuery, player.getPlayerId(), player.getName(), player.getCountryCode());
+        try {
+            jdbcTemplate.update(insertPlayerQuery, player.getPlayerId(), player.getName(), player.getCountryCode());
+            return "Success";
+        }
+        catch (DuplicateKeyException e) {
+            return e.getMessage();}
     }
 
     @Override
-    public void addGameLevelToPlayer(int id, int playerId, PlayerLevel playerLevel,  Game game) {
+    public String addGameLevelToPlayer(int id, int playerId, Game game, PlayerLevel playerLevel) {
         String insertGameLevelQuery =
-                "INSERT INTO playerLevels (id, playerId, level, game)" +
+                "INSERT INTO playerLevels (id, playerId, game, level)" +
                 "VALUES (?, ?, ?, ?); ";
-        jdbcTemplate.update(insertGameLevelQuery, id, playerId, playerLevel, game);
+        try{
+            jdbcTemplate.update(insertGameLevelQuery, id, playerId, game.name(), playerLevel.name());
+            return "Success";
+        }
+        catch (DuplicateKeyException e) {
+            return e.getMessage();}
     }
 
     @Override
-    public List<Player> getMatchingPlayers(String countryCode, Level level) {
+    public List<Player> getMatchingPlayers(String countryCode, PlayerLevel level) {
         String getMatchingPlayersQuery =
                 "SELECT p.id, p.name, p.geography " +
                 " FROM players p " +
@@ -45,7 +56,7 @@ public class JdbcPlayerDAO implements PlayerDAO {
                          .name(String.valueOf(rs.getString("name")))
                          .countryCode(String.valueOf(rs.getString("geography")))
                          .build(),
-                         countryCode, level);
+                         countryCode, level.name());
     }
 
     @Override
@@ -60,7 +71,7 @@ public class JdbcPlayerDAO implements PlayerDAO {
                         .name(String.valueOf(rs.getString("name")))
                         .countryCode(String.valueOf(rs.getString("geography")))
                         .build(),
-                        playerLevel, game);
+                        playerLevel.name(), game.name());
     }
 
     @Override
