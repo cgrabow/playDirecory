@@ -1,5 +1,5 @@
-INSERT INTO players VALUES (1, 'Alexander', 'DKK');
-INSERT INTO players VALUES (2, 'Andreas', 'DKK');
+INSERT INTO players VALUES (1, 'Alexander', 'DNK');
+INSERT INTO players VALUES (2, 'Andreas', 'DNK');
 INSERT INTO players VALUES (3, 'Thomas', 'MVD');
 INSERT INTO players VALUES (4, 'Michael', 'SVN');
 INSERT INTO players VALUES (5, 'Lise', 'DEU');
