@@ -10,12 +10,4 @@ public class Level {
     private int playerId;
     private Game game;
     private PlayerLevel playerLevel;
-
-
-    public Level(int id, int playerId, Game game, PlayerLevel playerLevel) {
-        this.id = id;
-        this.playerId = playerId;
-        this.game = game;
-        this.playerLevel = playerLevel;
-    }
 }

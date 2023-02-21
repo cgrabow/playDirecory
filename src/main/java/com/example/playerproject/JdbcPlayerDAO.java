@@ -45,7 +45,7 @@ public class JdbcPlayerDAO implements PlayerDAO {
     }
 
     @Override
-    public List<Player> getMatchingPlayers(String countryCode, PlayerLevel level) {
+    public List<Player> getMatchingPlayers(String countryCode, PlayerLevel playerLevel) {
         String getMatchingPlayersQuery =
                 "SELECT p.id, p.name, p.geography " +
                 " FROM players p " +
@@ -56,7 +56,7 @@ public class JdbcPlayerDAO implements PlayerDAO {
                          .name(String.valueOf(rs.getString("name")))
                          .countryCode(String.valueOf(rs.getString("geography")))
                          .build(),
-                         countryCode, level.name());
+                         countryCode, playerLevel.name());
     }
 
     @Override

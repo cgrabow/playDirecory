@@ -38,14 +38,14 @@ public class PlayerController {
         service.addLevelToPlayer(id, playerId, playerLevel, game);
     }
 
-    @GetMapping("/players/{countryCode}/{level}")
+    @GetMapping("/players/match/{countryCode}/{playerLevel}")
     @ResponseStatus(HttpStatus.OK)
     public List<Player> getMatchingPlayers(@PathVariable("countryCode") String countryCode,
-                                           @PathVariable("level") PlayerLevel level) {
-        return service.getMatchingPlayers(countryCode, level);
+                                           @PathVariable("playerLevel") PlayerLevel PlayerLevel) {
+        return service.getMatchingPlayers(countryCode, PlayerLevel);
     }
 
-    @GetMapping("/players/{game}/{playerLevel}")
+    @GetMapping("/players/rank/{game}/{playerLevel}")
     @ResponseStatus(HttpStatus.OK)
     public List<Player> getPlayersByRanking(@PathVariable("game") Game game,
                                             @PathVariable("playerLevel") PlayerLevel playerLevel) {

@@ -30,8 +30,8 @@ Body:
 If we were to add a level to the just created player the specific URL would be 
 `localhost:8080/playerproject/levels/25/9/PRO/GOLF`
 
-* Get request for getting matching players. URL: `localhost:8080/playerproject/players/{countryCode}/{level}`
-* Get request for getting players matched by level. URL: `localhost:8080/playerproject/players/{game}/{playerLevel}`
+* Get request for getting matching players. URL: `localhost:8080/playerproject/players/match/{countryCode}/{playerLevel}`
+* Get request for getting players matched by level. URL: `localhost:8080/playerproject/players/rank/{game}/{playerLevel}`
 
 ## Technologies 
 Project is created with:

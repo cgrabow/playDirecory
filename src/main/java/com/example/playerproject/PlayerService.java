@@ -22,12 +22,12 @@ public class PlayerService {
         return playerDAO.addGameLevelToPlayer(id, playerId, game, playerLevel);
     }
 
-    public List<Player> getMatchingPlayers(String countryCode, PlayerLevel level) {
-        return playerDAO.getMatchingPlayers(countryCode, level);
+    public List<Player> getMatchingPlayers(String countryCode, PlayerLevel playerLevel) {
+        return playerDAO.getMatchingPlayers(countryCode, playerLevel);
     }
 
-    public List<Player> getPlayerByRanking(Game game, PlayerLevel level) {
-        return playerDAO.getPlayerByRanking(game, level);
+    public List<Player> getPlayerByRanking(Game game, PlayerLevel playerLevel) {
+        return playerDAO.getPlayerByRanking(game, playerLevel);
     }
 
     public List<Player> getAllPlayers() {

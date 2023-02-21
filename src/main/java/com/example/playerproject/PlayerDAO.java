@@ -10,7 +10,7 @@ public interface PlayerDAO {
 
     String addGameLevelToPlayer(int id, int playerId, Game game, PlayerLevel playerLevel);
 
-    List<Player> getMatchingPlayers(String countryCode, PlayerLevel level);
+    List<Player> getMatchingPlayers(String countryCode, PlayerLevel playerLevel);
 
     List<Player> getPlayerByRanking(Game game, PlayerLevel playerLevel);
 
